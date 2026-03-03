@@ -1,0 +1,318 @@
+/* ============================================================
+   0) POLICES
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #ffe3f1, #d9c7ff);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+
+
+/* ============================================================
+   1) BARRE DU HAUT (ACCUEIL – LOGO – PLEIN ÉCRAN)
+   ============================================================ */
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Bouton accueil */
+.btn-accueil {
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #6b2fa0;
+    font-weight: bold;
+    transition: 0.25s ease;
+}
+
+.btn-accueil:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+/* Logo centré */
+.top-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.logo-texhebdo-bar {
+    height: 110px;
+}
+
+/* Badge Mélody */
+.badge-melody {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #7a3db8;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Bouton plein écran */
+.btn-fullscreen {
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: #6b2fa0;
+    transition: 0.25s ease;
+}
+
+.btn-fullscreen:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+
+
+/* ============================================================
+   2) TITRES ET TEXTES
+   ============================================================ */
+
+.sous-titre {
+    font-size: 42px;
+    color: #5a1f8f;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.textesoustitre {
+    font-size: 20px;
+    color: #7a3db8;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.notice {
+    font-size: 18px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 45px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px #00000050;
+}
+
+
+
+/* ============================================================
+   3) LIVRE (VERSION PC)
+   ============================================================ */
+
+.book {
+    width: 800px;
+    height: 550px;
+    position: relative;
+    perspective: 2000px;
+    transform: scale(1.25);
+    transform-origin: center;
+    margin: 60px auto 0 auto;
+}
+
+.spread {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    width: 350px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.ghostPage {
+    position: absolute;
+    width: 350px;
+    height: 500px;
+    left: 400px;
+    top: 25px;
+    transform-origin: left;
+    opacity: 0;
+    pointer-events: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.ghostPage .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
+    opacity: 0;
+}
+
+
+
+/* ============================================================
+   4) ANIMATIONS DE PAGE
+   ============================================================ */
+
+.turningGhost {
+    animation: turnPage 0.8s forwards;
+}
+
+.turningGhostReverse {
+    animation: turnPageReverse 0.8s forwards;
+}
+
+.coverOpening {
+    animation: coverOpen 0.5s forwards;
+}
+
+.coverClosing {
+    animation: coverClose 0.5s forwards;
+}
+
+.shadowActive {
+    opacity: 1 !important;
+}
+
+@keyframes turnPage {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-180deg); }
+}
+
+@keyframes turnPageReverse {
+    from { transform: rotateY(-180deg); }
+    to { transform: rotateY(0deg); }
+}
+
+@keyframes coverOpen {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-180deg); }
+}
+
+@keyframes coverClose {
+    from { transform: rotateY(-180deg); }
+    to { transform: rotateY(0deg); }
+}
+
+
+
+/* ============================================================
+   5) FLÈCHES
+   ============================================================ */
+
+.arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    color: #ffffff;
+    text-shadow: 3px 3px 6px #00000080;
+    cursor: pointer;
+    z-index: 99999;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+.arrow:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+.arrow-left { left: 5vw; }
+.arrow-right { right: 5vw; }
+
+
+
+/* ============================================================
+   6) VERSION MOBILE (≤ 700px)
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .top-bar {
+        height: 70px;
+        padding: 5px 10px;
+    }
+
+    .logo-texhebdo-bar {
+        height: 55px;
+    }
+
+    .badge-melody {
+        font-size: 0.7rem;
+    }
+
+    .book {
+        transform: scale(1);
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+    .page {
+        width: 45vw;
+        height: 65vw;
+    }
+
+    .ghostPage {
+        width: 45vw;
+        height: 65vw;
+        left: 50vw;
+        top: 5vw;
+    }
+
+    .notice {
+        margin-top: 15px;
+        margin-bottom: 25px;
+        font-size: 13px;
+    }
+
+    .arrow {
+        font-size: 40px;
+    }
+
+    .arrow-left { left: 2vw; }
+    .arrow-right { right: 2vw; }
+
+    .btn-accueil,
+    .btn-fullscreen {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+}
