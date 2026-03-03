@@ -13,6 +13,9 @@ const errorVideos = [
   "chevre/error06.mp4"
 ];
 
+// Index pour faire défiler les erreurs dans l'ordre
+let errorIndex = 0;
+
 function checkPassword() {
   const goodPassword = "sos";   // ton mot de passe
   const input = document.getElementById("password").value;
@@ -40,16 +43,11 @@ function checkPassword() {
   /* MOT DE PASSE CORRECT */
   if (input === goodPassword) {
 
-
     goatVideo.muted = false;   // 🔊 autorise le son
     goatVideo.volume = 1;      // 🔊 volume normal
 
     goatVideo.src = successVideo;
     goatVideo.play();
-
-
-
-
 
     bubble.textContent = successMessages[Math.floor(Math.random() * successMessages.length)];
     bubble.style.display = "block";
@@ -61,20 +59,19 @@ function checkPassword() {
     return false;
   }
 
+  /* MOT DE PASSE INCORRECT — vidéos + messages dans l'ordre */
+  const msg = errorMessages[errorIndex % errorMessages.length];
+  bubble.textContent = msg;
+  bubble.style.display = "block";
 
-/* MOT DE PASSE INCORRECT */
-bubble.textContent = errorMessages[Math.floor(Math.random() * errorMessages.length)];
-bubble.style.display = "block";
+  goatVideo.muted = false;
+  goatVideo.volume = 1;
 
-goatVideo.muted = false;   // 🔊 active le son
-goatVideo.volume = 1;      // 🔊 volume normal
+  const nextErrorVideo = errorVideos[errorIndex % errorVideos.length];
+  goatVideo.src = nextErrorVideo;
+  goatVideo.play();
 
-const randomErrorVideo = errorVideos[Math.floor(Math.random() * errorVideos.length)];
-goatVideo.src = randomErrorVideo;
-goatVideo.play();
-
-
-
+  errorIndex++; // passe à la vidéo suivante
 
   return false;
 }
