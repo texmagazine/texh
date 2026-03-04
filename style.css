@@ -1,3 +1,4 @@
+
 /* =========================================================
    1. RESET GLOBAL
 ========================================================= */
@@ -408,3 +409,19 @@ footer {
   z-index: 20;
   animation: rebond 0.8s ease-out;
 }
+@media (max-width: 600px) {
+  .mascotte {
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .bullebd {
+    width: 220px;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+
