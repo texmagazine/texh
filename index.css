@@ -146,7 +146,7 @@ body {
   .login-box input[type="password"],
   .login-box button {
     width: 90%;
-    height: 65px;
+    height: 100px;
     font-size: 18px;
   }
 
@@ -154,4 +154,5 @@ body {
     width: 220px;
   }
 }
+
 
