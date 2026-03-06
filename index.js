@@ -10,7 +10,7 @@ const errorVideos = [
   "chevre/error03.mp4",
   "chevre/error04.mp4",
   "chevre/error05.mp4",
-  "chevre/error06.mp4"
+
 ];
 
 // Index pour faire défiler les erreurs dans l'ordre
@@ -75,3 +75,4 @@ function checkPassword() {
 
   return false;
 }
+
