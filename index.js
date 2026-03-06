@@ -10,6 +10,7 @@ const errorVideos = [
   "chevre/error03.mp4",
   "chevre/error04.mp4",
   "chevre/error05.mp4",
+   "chevre/error01.mp4"
 
 ];
 
@@ -75,4 +76,5 @@ function checkPassword() {
 
   return false;
 }
+
 
