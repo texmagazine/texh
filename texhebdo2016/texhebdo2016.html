@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Magazine TEXHEBDO — Novembre 2016</title>
+    <link rel="stylesheet" href="magazine.css">
+</head>
+
+<body>
+
+<!-- BARRE HAUT -->
+<div class="top-bar">
+    <div class="top-left">
+        <a href="../accueil.html" class="btn-accueil">ACCUEIL</a>
+    </div>
+
+    <div class="top-center">
+        <img src="image/texmascotte.png" alt="Logo TEXHEBDO" class="logo-texhebdo-bar">
+    </div>
+
+    <div class="top-right">
+        <button class="btn-fullscreen" id="fullscreenBtn">⛶ Plein écran</button>
+    </div>
+</div>
+
+
+
+<!-- TITRE -->
+<h1 class="sous-titre">Novembre 2016 — Numéro spécial</h1>
+
+<p class="textesoustitre">
+    Une édition musicale et chaleureuse pour accompagner l’automne.
+</p>
+
+<!-- LIVRE -->
+<div class="book">
+
+    <div id="spread" class="spread">
+        <div class="page" id="leftPage"></div>
+        <div class="page" id="rightPage"></div>
+    </div>
+
+    <div class="ghostPage" id="ghostPage">
+        <div class="shadow"></div>
+    </div>
+
+    <div id="buffer" style="display:none;"></div>
+
+</div>
+
+<p class="notice">Cliquer sur les pages pour ouvrir le magazine</p>
+
+<!-- FLÈCHES -->
+<div class="arrow arrow-left" id="arrowLeft">&#10094;</div>
+<div class="arrow arrow-right" id="arrowRight">&#10095;</div>
+
+<!-- SCRIPT TEXHEBDO NOVEMBRE 2016 -->
+<script>
+
+/* PARAMÈTRES DU MAGAZINE */
+const cover = "pages/nov2016couverture.jpg";
+
+const pages = [
+  "pages/nov2016page2.jpg",
+  "pages/nov2016page3.jpg",
+  "pages/nov2016page4.jpg",
+  "pages/nov2016page5.png"
+];
+
+/* Construction des double-pages */
+const spreads = [];
+for (let i = 0; i < pages.length; i += 2) {
+  if (pages[i + 1]) spreads.push([pages[i], pages[i + 1]]);
+}
+
+/* Préchargement */
+[cover, ...pages].forEach(src => { const img = new Image(); img.src = src; });
+
+let currentSpread = 0;
+
+const leftPage = document.getElementById("leftPage");
+const rightPage = document.getElementById("rightPage");
+const ghost = document.getElementById("ghostPage");
+const ghostShadow = ghost.querySelector(".shadow");
+const buffer = document.getElementById("buffer");
+
+/* AFFICHAGE */
+function showSpread(index) {
+  if (index === 0) {
+    leftPage.style.backgroundImage = "none";
+    rightPage.style.backgroundImage = `url(${cover})`;
+    return;
+  }
+  const spreadData = spreads[index - 1];
+  leftPage.style.backgroundImage = `url(${spreadData[0]})`;
+  rightPage.style.backgroundImage = `url(${spreadData[1]})`;
+}
+
+showSpread(0);
+
+/* PRÉCHARGEMENT */
+function prerenderSpread(index) {
+  if (index >= 1 && index <= spreads.length) {
+    const nextSpread = spreads[index - 1];
+    buffer.style.backgroundImage = `url(${nextSpread[1]})`;
+  }
+}
+
+prerenderSpread(1);
+
+/* AVANCER */
+rightPage.addEventListener("click", () => {
+
+  if (currentSpread === 0) {
+    ghost.style.backgroundImage = `url(${cover})`;
+    ghost.style.opacity = 1;
+    ghost.classList.add("coverOpening");
+
+    setTimeout(() => {
+      ghost.classList.remove("coverOpening");
+      ghost.style.opacity = 0;
+      currentSpread = 1;
+      showSpread(1);
+      prerenderSpread(2);
+    }, 500);
+    return;
+  }
+
+  if (currentSpread === spreads.length) {
+    ghost.style.backgroundImage = rightPage.style.backgroundImage;
+    ghost.style.opacity = 1;
+    ghost.classList.add("coverClosing");
+
+    setTimeout(() => {
+      ghost.classList.remove("coverClosing");
+      ghost.style.opacity = 0;
+      currentSpread = 0;
+      showSpread(0);
+    }, 500);
+    return;
+  }
+
+  ghost.style.backgroundImage = rightPage.style.backgroundImage;
+  ghost.style.opacity = 1;
+  ghost.classList.add("turningGhost");
+  ghostShadow.classList.add("shadowActive");
+
+  setTimeout(() => {
+    currentSpread++;
+    showSpread(currentSpread);
+    prerenderSpread(currentSpread + 1);
+  }, 400);
+
+  setTimeout(() => {
+    ghost.classList.remove("turningGhost");
+    ghostShadow.classList.remove("shadowActive");
+    ghost.style.opacity = 0;
+  }, 800);
+});
+
+/* RECULER */
+leftPage.addEventListener("click", () => {
+
+  if (currentSpread === 1) {
+    ghost.style.backgroundImage = `url(${cover})`;
+    ghost.style.opacity = 1;
+    ghost.classList.add("coverClosing");
+
+    setTimeout(() => {
+      ghost.classList.remove("coverClosing");
+      ghost.style.opacity = 0;
+      currentSpread = 0;
+      showSpread(0);
+    }, 500);
+    return;
+  }
+
+  if (currentSpread === 0) return;
+
+  ghost.style.backgroundImage = leftPage.style.backgroundImage;
+  ghost.style.opacity = 1;
+  ghost.classList.add("turningGhostReverse");
+  ghostShadow.classList.add("shadowActive");
+
+  setTimeout(() => {
+    currentSpread--;
+    showSpread(currentSpread);
+    prerenderSpread(currentSpread - 1);
+  }, 400);
+
+  setTimeout(() => {
+    ghost.classList.remove("turningGhostReverse");
+    ghostShadow.classList.remove("shadowActive");
+    ghost.style.opacity = 0;
+  }, 800);
+});
+
+/* FLÈCHES */
+document.getElementById("arrowRight").addEventListener("click", () => rightPage.click());
+document.getElementById("arrowLeft").addEventListener("click", () => leftPage.click());
+
+/* PLEIN ÉCRAN */
+const fsBtn = document.getElementById("fullscreenBtn");
+fsBtn.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+});
+</script>
+
+</body>
+</html>
