@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion – Texhebdo</title>
+  <link rel="stylesheet" href="index.css">
+
+  <!-- POLICES -->
+  <link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- LOGO / TITRE -->
+  <div class="welcome-block">
+    <img class="welcome-logo" src="image/v2texmascotte.png" alt="Logo Texhebdo">
+  </div>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <div class="login-box">
+
+    <!-- VIDÉO -->
+    <video class="goat-video" autoplay muted playsinline src="chevre/start.mp4"></video>
+
+    <!-- BULLE DE MESSAGE -->
+    <div class="goat-speech">
+      <span class="bubble-inner"></span>
+    </div>
+
+    <p class="subtitle">Saisir le mot de passe</p>
+
+    <form onsubmit="return checkPassword()">
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <button type="submit">Valider</button>
+    </form>
+
+  </div>
+
+  <script src="index.js"></script>
+
+</body>
+</html>
