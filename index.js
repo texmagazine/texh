@@ -16,7 +16,7 @@ const errorVideos = [
 let errorIndex = 0;
 
 function checkPassword() {
-  const goodPassword = "sos";
+  const goodPassword = "anniversaire";
   const input = document.getElementById("password").value;
 
   const bubble = document.querySelector(".goat-speech");
@@ -80,3 +80,4 @@ function checkPassword() {
 
   return false;
 }
+
