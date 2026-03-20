@@ -63,20 +63,26 @@ function checkPassword() {
     return false;
   }
 
-  /* MOT DE PASSE INCORRECT */
-  const msg = errorMessages[errorIndex % errorMessages.length];
-  bubbleInner.textContent = msg;
+/* MOT DE PASSE INCORRECT */
+const msg = errorMessages[errorIndex % errorMessages.length];
+bubbleInner.textContent = msg;
 
-  const nextErrorVideo = errorVideos[errorIndex % errorVideos.length];
-  goatVideo.src = nextErrorVideo;
-  goatVideo.onloadeddata = () => goatVideo.play();
+const nextErrorVideo = errorVideos[errorIndex % errorVideos.length];
+goatVideo.src = nextErrorVideo;
+goatVideo.onloadeddata = () => goatVideo.play();
 
-  requestAnimationFrame(() => {
-    bubble.classList.add("show", "deflate-asym");
-    bubbleInner.classList.add("shake");
-  });
+/* 🔊 JOUER LE SON D'ERREUR */
+const errorSound = document.getElementById("error-sound");
+errorSound.currentTime = 0;
+errorSound.play();
 
-  errorIndex++;
+requestAnimationFrame(() => {
+  bubble.classList.add("show", "deflate-asym");
+  bubbleInner.classList.add("shake");
+});
+
+errorIndex++;
+
 
   return false;
 }
