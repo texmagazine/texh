@@ -71,10 +71,22 @@ const nextErrorVideo = errorVideos[errorIndex % errorVideos.length];
 goatVideo.src = nextErrorVideo;
 goatVideo.onloadeddata = () => goatVideo.play();
 
-/* 🔊 JOUER LE SON D'ERREUR */
+/* 🔊 GESTION DES SONS */
+const goatLoop = document.getElementById("goat-loop");
 const errorSound = document.getElementById("error-sound");
+
+// On coupe le bêlement pendant l’erreur
+goatLoop.pause();
+
+// On joue le son d’erreur
 errorSound.currentTime = 0;
 errorSound.play();
+
+// Quand le son d’erreur est terminé → la chèvre reprend son bêlement
+errorSound.onended = () => {
+  goatLoop.currentTime = 0;
+  goatLoop.play();
+};
 
 requestAnimationFrame(() => {
   bubble.classList.add("show", "deflate-asym");
@@ -82,6 +94,7 @@ requestAnimationFrame(() => {
 });
 
 errorIndex++;
+
 
 
   return false;
